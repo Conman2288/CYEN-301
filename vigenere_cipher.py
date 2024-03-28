@@ -11,7 +11,7 @@ def cyclic_key_generation(string, key):
     else:
         for i in range (len(string) - len(key)):
             key.append(key[i % len(key)])
-            return("", join(key))
+            return("" . join(key))
 
 
 # Checking if the user gives correct number and types of arguments
@@ -22,7 +22,8 @@ if not((len(sys.argv) >= 2 and (sys.argv[1] == "-d" or sys.argv[1] == "-e"))):
 else:
     print("Here is the given key " + sys.argv[2])
 
-    user_text = input("\n")
+    user_text = input("")
 
     # Create a repeatable key with equal length to user provided string
     full_key = cyclic_key_generation(user_text, sys.argv[2])
+    print("Here the full key based on length of given text: " + full_key)
