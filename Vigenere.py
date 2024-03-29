@@ -50,4 +50,5 @@ try:
             decryption(input, key)
 
 except KeyboardInterrupt:
+    print()
     sys.exit(0)
