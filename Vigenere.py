@@ -40,7 +40,7 @@ key = sys.argv[2].upper().replace(" ","")
 
 try:
     for input in sys.stdin:
-        input = input[:-1]
+        input = input.strip('\n')
         while(len(input) >= len(key)):
             key += key
 
