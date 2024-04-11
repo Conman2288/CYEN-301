@@ -1,9 +1,16 @@
+# Team Algae
+# Alekhya Kalidindi, Cole Sylvester, Connor Heard, Dominic Rosario
+# Hailey Allmann, Jacob Von Tress, Spencer Rochel
+# Program #3 - FTP Permission Decode
+
 from ftplib import FTP
 
 METHOD = 10
 # FTP server details
 IP = "138.47.165.156"
 PORT = 21
+# FTP server is configured to allow anonymous logons with
+# blank password entry
 USER = "anonymous"
 PASSWORD = ""
 FOLDER = "/" + str(METHOD)
@@ -29,16 +36,16 @@ for f in files:
     file_permissions = f[:10] if METHOD == 10 else f[3:10]
     for char in file_permissions:
         if char != '-':
-            result += '1'
+            result += '1' # if permission exists add '1' to result
         else:
-            result += '0'
+            result += '0' # if permission does not exit add '0' to result
 
 output = ""
 i=0
 while(i<=len(result)):
     x = result[i:i+7] if i+7<len(result) else result[i:len(result)]
     if(x != ''):
-        output = output + chr(int(x,2))
+        output = output + chr(int(x,2)) # Convert the binary to ASCII format
     i=i+7
 
 print(output)
