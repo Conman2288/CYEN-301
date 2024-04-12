@@ -34,7 +34,13 @@ ftp.quit()
 result = ""
 for f in files:
     # input file permissions based on the METHOD
-    file_permissions = f[:10] if METHOD == 10 else f[3:10]
+     if METHOD == 7 and f[0:3] == "---":
+        file_permissions = f[3:10]
+    else:
+        file_permissions = ""
+    if METHOD == 10:
+        file_permissions = f[:10]
+    
     #converting file permissions to binary
     for char in file_permissions:
         if char != '-':
