@@ -30,15 +30,17 @@ ftp.dir(files.append)
 # exit the FTP server
 ftp.quit()
 
-# display the folder contents
+# converting file permissions to binary
 result = ""
 for f in files:
+    # input file permissions based on the METHOD
     file_permissions = f[:10] if METHOD == 10 else f[3:10]
+    #converting file permissions to binary
     for char in file_permissions:
         if char != '-':
             result += '1' # if permission exists add '1' to result
         else:
-            result += '0' # if permission does not exit add '0' to result
+            result += '0' # if permission does not exist add '0' to result
 
 output = ""
 i=0
