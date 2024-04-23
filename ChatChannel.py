@@ -1,15 +1,17 @@
 # import libraries
 import socket
-from sys import stdout
-from time import perf_counter
+from sys import stdout, exit
+from time import time, perf_counter
 
 # debugging tools
-debug = True
+DEBUG = False
 debugSignal = False
 
 # set the server's IP address and port
 ip = "138.47.165.156"
 port = 31337
+
+time_interval = 0.065
 
 # create the socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -17,7 +19,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # connect to the server
 s.connect((ip, port))
 
-#initialize variables
+"""#initialize variables
 covertMessage = ""
 binaryBuffer = ""
 receivedSignals = ""
@@ -41,7 +43,7 @@ while (receivedSignals[-3:] != "EOF"):
 
 # Convert delays to binary
 binaryBuffer = ''.join('1' if delay >= 0.05 else '0' for delay in delays)
-if (debug):
+if (DEBUG):
     print("Binary:", binaryBuffer)
     print()
 
@@ -54,9 +56,40 @@ while len(binaryBuffer) >= 8:
 stdout.write("Overt message:" + receivedSignals)
 stdout.write("")
 stdout.write("Covert message:" + covertMessage)
-if (debug):
+if (DEBUG):
     print()
     print(delays)
     print(len(delays))
 # close the connection to the server
+s.close()"""
+
+# Create a string for inbound bits
+bits =  ""
+
+# We want to keep data coming until end of file
+data = s.recv(4096).decode()
+while (data.rstrip("\n") != "EOF"):
+	
+	# output the data
+	stdout.write(data)
+	stdout.flush()
+	
+	# start the "timer", get more data, and end the "timer"
+	t0 = time()
+	data = s.recv(4096).decode()
+	t1 = time()
+	
+	# calculate the time delta (and output if debugging)
+	delta = round(t1 - t0, 3)
+	if (DEBUG):
+		stdout.write(" {}\n".format(delta))
+		stdout.flush()
+	if (delta < time_interval):
+		bits += "0"
+	else:
+		bits += "1"
+
+# close the connection to the server
 s.close()
+
+print(bits)
