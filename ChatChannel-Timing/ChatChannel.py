@@ -1,3 +1,8 @@
+# Team Algae
+# Alekhya Kalidindi, Cole Sylvester, Connor Heard, Dominic Rosario
+# Hailey Allmann, Jacob Von Tress, Spencer Rochel
+# Program #4 - Chat Covert Channel
+
 # import libraries
 import socket
 from sys import stdout
