@@ -21,7 +21,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # connect to the server
 s.connect((ip, port))
-print("Connected")
+print("Connected... Currently Receiving\n")
 
 #initialize variables
 covertMessage = ""
@@ -30,13 +30,17 @@ receivedSignals = ""
 delays = []
 
 while (receivedSignals[-3:] != "EOF"):
+
     # start the "timer"
     t0 = perf_counter()
     # get the signal
-    signal = s.recv(1).decode()
-    print(signal, end="")
+    signal = s.recv(4096).decode()
     # end the "timer"
     t1 = perf_counter()
+
+    stdout.write(signal)
+    stdout.flush()
+
     # calculate the time delta
     delta = round(t1 - t0, 3)
     # Append the signal to the string

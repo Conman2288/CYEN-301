@@ -16,6 +16,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # connect to the server
 s.connect((ip, port))
+print("Connected... Currently Receiving\n")
 
 #initialize variables
 covertMessage = ""
@@ -24,12 +25,17 @@ receivedSignals = ""
 delays = []
 
 while (receivedSignals[-3:] != "EOF"):
+
     # start the "timer"
     t0 = perf_counter()
     # get the signal
-    signal = s.recv(1).decode()
+    signal = s.recv(4096).decode()
     # end the "timer"
     t1 = perf_counter()
+
+    stdout.write(signal)
+    stdout.flush()
+
     # calculate the time delta
     delta = round(t1 - t0, 3)
     # Append the signal to the string
@@ -57,12 +63,13 @@ while len(binaryBuffer) >= 8:
 stdout.write("Overt message:" + receivedSignals)
 stdout.write("\n")
 
-#End file here (covert) as EOF defines when it stops
-counter_for_start = 0
-for i in range(3, len(covertMessage) + 1):
-    if covertMessage[counter_for_start:i] == "EOF":
-        covertMessage = covertMessage[:counter_for_start]
-    counter_for_start += 1
+# Keep this commented out to view the entirety of the covert message
+# End file here (covert) as EOF defines when it stops
+# counter_for_start = 0
+# for i in range(3, len(covertMessage) + 1):
+#     if covertMessage[counter_for_start:i] == "EOF":
+#         covertMessage = covertMessage[:counter_for_start]
+#     counter_for_start += 1
 
 stdout.write("Covert message:" + covertMessage)
 if (debug):
