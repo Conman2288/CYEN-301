@@ -1,0 +1,10 @@
+Error occured
+-------------------Example Usage: python(3) steg.py -s -b -o<val> -i<val> -w<file> -h<secret_file> > output_file
+-s --> store
+-r --> retrieve
+-b --> bit mode
+-B --> byte mode
+-o<val> --> set file header offset
+-i<val> set bit/byte interval
+-w<val> --> set wrapper file
+-h<val> set hidden file
