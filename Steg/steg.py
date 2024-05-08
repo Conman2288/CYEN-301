@@ -1,7 +1,13 @@
+# Team Algae
+# Alekhya Kalidindi, Cole Sylvester, Connor Heard, Dominic Rosario
+# Hailey Allmann, Jacob Von Tress, Spencer Rochel
+# Program #7 - Steg
 import sys
 
 SENTINEL = bytearray([0, 0xff, 0, 0, 0xff, 0])
 
+# This function parses the arguments passed by the user
+# So that they can be passed into byte and bit function
 def get_args():
     args = []
     for i in range(1,6):
@@ -24,7 +30,9 @@ def help():
     print("-w<val> --> set wrapper file")
     print("-h<val> set hidden file")
     exit()
-    
+
+# This function iterates over an set interval of bytes and
+# stores data between them; returns the combined file    
 def byte_store(wrapper, hidden, offset=0, interval=1):
     with open(wrapper, "rb") as wrapper_file, open(hidden, "rb") as hidden_file:
         wrapper_bytes = bytearray(wrapper_file.read())
@@ -42,7 +50,10 @@ def byte_store(wrapper, hidden, offset=0, interval=1):
         position += interval
         
     return wrapper_bytes
-        
+
+# This function parses over the file and extracts a byte
+# based every interval of bytes; it stops when it hits
+# the sentinel bytes        
 def byte_extract(wrapper, offset=0, interval=1):
     with open(wrapper, "rb") as wrapper_file:
         wrapper_bytes = bytearray(wrapper_file.read())
@@ -70,7 +81,9 @@ def byte_extract(wrapper, offset=0, interval=1):
         position += interval
         
     return output_bytes
-    
+
+# This function iterates through a wrapper file and
+# hides data at a bit level by usiing bit-wise operators    
 def bit_store(wrapper, hidden, offset=0, interval=1):
     with open(wrapper, "rb") as wrapper_file, open(hidden, "rb") as hidden_file:
         wrapper_bytes = bytearray(wrapper_file.read())
@@ -94,6 +107,9 @@ def bit_store(wrapper, hidden, offset=0, interval=1):
     
     return wrapper_bytes
 
+# This function parses through the wrapper file and
+# pulls out data using bitwise operators; it will stop
+# once it hits the sentinel bytes
 def bit_extract(wrapper, offset=0, interval=1):
     with open(wrapper, "rb") as wrapper_file:
         wrapper_bytes = bytearray(wrapper_file.read())
@@ -133,9 +149,10 @@ def bit_extract(wrapper, offset=0, interval=1):
         
     return output_bytes
         
+# Main command line program
 if __name__ == '__main__':
-
     try:
+        # Check for user input and use different function based on arguments passed
         args = get_args()
         if (args[0] == "-s"):
             if (args[1] == "-b"):
