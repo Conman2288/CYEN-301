@@ -5,7 +5,7 @@
 
 import sys
 
-key_file_name = "key2"
+key_file_name = "k3y"
 
 # Function to encrypt and decrypt ciphertext/plaintext
 # Logic of function gotten from https://www.geeksforgeeks.org/xor-cipher/
