@@ -64,14 +64,14 @@ def byte_extract(wrapper, offset=0, interval=1):
     while position < len(wrapper_bytes):
         b = wrapper_bytes[position]
         if b == 0:
-            look_ahead_pos = position + interval
+            next_position = position + interval
             sent = True
             for i in range(5):
-                if look_ahead_pos < len(wrapper_bytes):
-                    if wrapper_bytes[look_ahead_pos] != SENTINEL[i + 1]:
+                if next_position < len(wrapper_bytes):
+                    if wrapper_bytes[next_position] != SENTINEL[i + 1]:
                         sent = False
                         break
-                    look_ahead_pos += interval
+                    next_position += interval
                 else:
                     sent = False
                     break
@@ -125,22 +125,22 @@ def bit_extract(wrapper, offset=0, interval=1):
                 b <<= 1
                 position += interval
         if b == 0:
-            look_ahead_pos = position + interval
+            next_position = position + interval
             sent = True
             for i in range(5):
-                if (look_ahead_pos + 7 * interval) < len(wrapper_bytes):
-                    look_ahead_b = 0
+                if (next_position + 7 * interval) < len(wrapper_bytes):
+                    next_byte = 0
                     for k in range(8):
-                        look_ahead_b |= (wrapper_bytes[look_ahead_pos] & 0b00000001)
+                        next_byte |= (wrapper_bytes[next_position] & 0b00000001)
                         if k < 7:
-                            look_ahead_b <<= 1
-                            look_ahead_pos += interval
-                    if look_ahead_b != SENTINEL[i + 1]:
+                            next_byte <<= 1
+                            next_position += interval
+                    if next_byte != SENTINEL[i + 1]:
                         sent = False
                         break
                 else:
                     break
-                look_ahead_b += interval
+                next_byte += interval
             if sent:
                 return output_bytes
                 
@@ -173,7 +173,7 @@ if __name__ == '__main__':
 
     except Exception:
         print("Error occured")
-        for I in range (19):
+        for i in range (19):
             print("-", end='')
         help()
         
