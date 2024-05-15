@@ -7,8 +7,8 @@ from ftplib import FTP
 
 METHOD = 10
 # FTP server details
-IP = "138.47.165.156"
-PORT = 21
+IP = "138.47.99.64"
+PORT = 1221
 # FTP server is configured to allow anonymous logons with
 # blank password entry
 USER = "anonymous"
