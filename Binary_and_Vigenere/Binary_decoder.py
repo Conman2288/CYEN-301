@@ -5,6 +5,15 @@
 
 # import system library
 import sys
+def help():
+    print("\nUsage: python3 Binary_decoder.py < [file_with_binary]")
+    print("\nTo ensure no problems, make sure all of the binary (1's and 0's)\nare on one single line in the file.")
+    print("\nExample with a binary file named \"binary.txt\":")
+    print("\npython3 Binary_decoder.py < binary.txt\n")
+    exit()
+    
+if len(sys.argv) >= 2 and sys.argv[1] == "help":
+    help()
 
 # read input from terminal
 binary_input = sys.stdin.read()
